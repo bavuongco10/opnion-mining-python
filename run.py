@@ -6,3 +6,7 @@ Created on Sun Dec  8 01:15:31 2019
 @author: user
 """
 
+import pandas as pd
+
+df_post = pd.read_csv('./fanpost.csv')
+
