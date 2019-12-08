@@ -53,8 +53,7 @@ train2 = parallelize_dataframe(df_cmt, get_sentiments)
 end = time.time()
 print('elapse time:', end - start)
 
-
-
-
+train.to_csv('./post_sentiment.csv')
+train2.to_csv('./cmt_sentiment.csv')
 
 
