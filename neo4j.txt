@@ -1,0 +1,25 @@
+CREATE constraint on (p:Page)
+ASSERT p.name is unique;
+
+CREATE constraint on (u:User)
+ASSERT u.name is unique;
+
+CREATE constraint on (po:Post)
+ASSERT po.id is unique;
+
+// Test csv file
+LOAD CSV WITH HEADERS 
+FROM 'https://raw.githubusercontent.com/bavuongco10/opnion-mining-python/master/mt_sentiment_strip_comment.csv' as row 
+return row
+limit 5
+
+
+USING PERIODIC COMMIT 500
+LOAD CSV WITH HEADERS 
+FROM 'https://raw.githubusercontent.com/bavuongco10/opnion-mining-python/master/cmt_sentiment_strip_comment.csv' 
+as row
+MERGE (p:Page { name: row['page_name'], categry: 'f&b' })
+MERGE (u:User { name: row['comments_user'] })
+MERGE (po:Post { id: row['post_id'] })
+MERGE (u)-[:COMMENT]->(po)
+MERGE (po)-[:IN]->(p)
