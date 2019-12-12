@@ -23,3 +23,12 @@ MERGE (u:User { name: row['comments_user'] })
 MERGE (po:Post { id: row['post_id'] })
 MERGE (u)-[:COMMENT]->(po)
 MERGE (po)-[:IN]->(p)
+
+
+MATCH rel=(u:User)-[r*1..2]->(p:Page) RETURN rel limit 1000
+
+MATCH rel=(u:User)-[r*1..2]->(p:Page)
+WHERE p.name = 'Mrpizaa' 
+return rel
+
+
